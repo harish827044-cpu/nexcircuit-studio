@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nex Circuit Design | Professional KiCad PCB Design From ₹499</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070a13;
+      --card: #0d1322;
+      --card-hover: #131c31;
+      --border: #1e293b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --cyan: #06b6d4;
+      --cyan-hover: #22d3ee;
+      --emerald: #10b981;
+      --primary: #3b82f6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    
+    /* Navbar */
+    nav { background: rgba(13, 19, 34, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .nav-wrap { display: flex; justify-content: space-between; align-items: center; height: 72px; }
+    .logo { font-family: 'Space Grotesk', sans-serif; font-size: 21px; font-weight: 800; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .logo span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 13.5px; font-weight: 600; cursor: pointer; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-track-nav { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 8px 14px; border-radius: 6px; font-weight: 700; font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    .btn-track-nav:hover { border-color: var(--cyan); color: var(--cyan); }
+    .btn-order-nav { background: var(--cyan); color: #070a13 !important; padding: 9px 18px; border-radius: 6px; font-weight: 800; font-size: 13px; cursor: pointer; border: none; }
+
+    /* Hero */
+    .hero { padding: 80px 0 50px; text-align: center; background: radial-gradient(circle at 50% 10%, rgba(6,182,212,0.15) 0%, transparent 60%); }
+    .badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(6,182,212,0.1); color: var(--cyan); padding: 6px 16px; border-radius: 9999px; font-size: 12.5px; font-weight: 700; margin-bottom: 20px; border: 1px solid rgba(6,182,212,0.3); font-family: 'Space Grotesk', sans-serif; }
+    .hero h1 { font-family: 'Space Grotesk', sans-serif; font-size: 46px; font-weight: 800; line-height: 1.15; margin-bottom: 18px; letter-spacing: -1px; }
+    .hero h1 span { background: linear-gradient(135deg, #06b6d4, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { font-size: 17.5px; color: var(--text-muted); max-width: 680px; margin: 0 auto 32px; }
+    .hero-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    
+    .btn-main-order { background: var(--cyan); color: #070a13; padding: 14px 28px; border-radius: 8px; font-weight: 800; font-size: 14.5px; text-decoration: none; cursor: pointer; border: none; box-shadow: 0 4px 15px rgba(6,182,212,0.3); }
+    .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 14px 24px; border-radius: 8px; font-weight: 700; font-size: 14px; text-decoration: none; cursor: pointer; }
+
+    /* Sections */
+    .section { padding: 65px 0; border-bottom: 1px solid var(--border); }
+    .sec-header { text-align: center; margin-bottom: 40px; }
+    .sec-title { font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 800; margin-bottom: 8px; }
+    .sec-desc { font-size: 14.5px; color: var(--text-muted); max-width: 580px; margin: 0 auto; }
+    
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .service-card { background: var(--card); border: 1px solid var(--border); padding: 26px 20px; border-radius: 12px; }
+    .service-icon { font-size: 24px; margin-bottom: 12px; }
+    .service-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .service-card p { font-size: 13px; color: var(--text-muted); }
+
+    /* VIEWS */
+    #orderView, #trackView { display: none; padding: 40px 0 80px; }
+    .order-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .btn-back-home { background: var(--card); color: var(--text); border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; font-weight: 700; font-size: 13px; cursor: pointer; }
+    
+    .box-card { background: var(--card); border: 1px solid var(--border); padding: 36px; border-radius: 16px; max-width: 820px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+    .form-section-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; color: var(--cyan); margin: 22px 0 10px; display: flex; align-items: center; gap: 8px; border-bottom: 1px dashed var(--border); padding-bottom: 6px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+    .form-control { width: 100%; padding: 11px 14px; border-radius: 8px; border: 1px solid var(--border); font-size: 13.5px; font-family: inherit; background: var(--bg); color: var(--text); }
+    .form-control:focus { outline: none; border-color: var(--cyan); }
+
+    /* Dynamic Pricing Banner */
+    .price-box-banner { background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.3); padding: 18px 24px; border-radius: 10px; margin: 20px 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .price-tag { font-family: 'Space Grotesk', sans-serif; font-size: 30px; font-weight: 800; color: var(--cyan); }
+
+    /* Stepper */
+    .tracker-stepper { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 25px 0 20px; text-align: center; }
+    .step-item { background: var(--bg); border: 1px solid var(--border); padding: 14px 8px; border-radius: 8px; font-size: 11.5px; font-weight: 700; color: var(--text-muted); }
+    .step-item.active { border-color: var(--cyan); color: var(--cyan); background: rgba(6,182,212,0.1); }
+    .step-item.completed { border-color: var(--emerald); color: var(--emerald); background: rgba(16,185,129,0.1); }
+
+    footer { padding: 40px 0 20px; text-align: center; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="container nav-wrap">
+      <div class="logo" onclick="showView('home')">⚡ Nex Circuit<span>Design</span></div>
+      <ul class="nav-links">
+        <li><a onclick="showView('home')">Home</a></li>
+        <li><a onclick="showView('home'); location.href='#services';">Capabilities</a></li>
+        <li><a onclick="showView('track')">🔍 Track Order</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="btn-track-nav" onclick="showView('track')">📦 Live Status</button>
+        <button class="btn-order-nav" onclick="showView('order')">⚡ Order PCB (from ₹499)</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 1. HOMEPAGE -->
+  <div id="homeView">
+    <section class="hero">
+      <div class="container">
+        <div class="badge">⚡ Affordable KiCad PCB Design • Launch Price From ₹499</div>
+        <h1>From Circuit Schematics to<br><span>Production-Ready Multi-Layer PCBs</span></h1>
+        <p>Turn your breadboard circuits, ESP32/STM32 IoT ideas, and custom schematics into industry-grade KiCad layouts with 100% manufacturing guarantee for JLCPCB & PCBWay.</p>
+        
+        <div class="hero-actions">
+          <button class="btn-main-order" onclick="showView('order')">
+            ⚡ Order Custom PCB (Starts at ₹499) 🚀
+          </button>
+          <button class="btn-secondary" onclick="showView('track')">
+            🔍 Track Existing Order Status
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="sec-header">
+          <h2 class="sec-title">Hardware Engineering Capabilities</h2>
+          <p class="sec-desc">End-to-end electronic hardware design services from basic breakout boards to complex IoT gateways.</p>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">📐</div>
+            <h3>Schematic & Multi-Layer Layout</h3>
+            <p>Clean hierarchical schematics, custom footprints, and optimal trace routing in KiCad.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">🔄</div>
+            <h3>Breadboard to Compact PCB</h3>
+            <p>Convert jumper-wire prototypes into compact SMD/THT PCBs ready for commercial enclosures.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">📡</div>
+            <h3>IoT & Wireless Hardware</h3>
+            <p>Hardware design for ESP32, STM32, LoRa, RS485 Industrial, Wi-Fi, and BLE modules.</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">🏭</div>
+            <h3>Full Manufacturing Archive</h3>
+            <p>Gerber RS-274X, Excellon Drill, SMT BOM with LCSC parts, and CPL Pick-and-Place files.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- 2. ORDER SPECIFICATION WITH ₹499 BUDGET PRICING -->
+  <div id="orderView" class="container">
+    <div class="order-top-bar">
+      <button class="btn-back-home" onclick="showView('home')">← Back to Homepage</button>
+      <span style="font-size:13px; font-weight:700; color:var(--cyan);">🛠️ Step 2: PCB Specs & Dynamic Budget Pricing</span>
+    </div>
+
+    <div class="box-card">
+      <h2 style="font-family:'Space Grotesk', sans-serif; font-size:24px; margin-bottom:4px;">⚡ Start Your Custom PCB Order</h2>
+      <p style="font-size:13px; color:var(--text-muted); margin-bottom:18px;">Select board size and component density to view your exact launch price in real-time.</p>
+
+      <form id="pcbOrderForm" onsubmit="submitPcbOrder(event)">
+        
+        <!-- 1. Concept -->
+        <div class="form-section-title">1. Project Title & Microcontroller</div>
+        <div class="form-group">
+          <label class="form-label">Project / Board Title</label>
+          <input type="text" class="form-control" id="projectTitle" placeholder="e.g. ESP32 IoT Temperature & Relay Controller" required>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;" class="form-group">
+          <div>
+            <label class="form-label">Power Supply Source</label>
+            <select class="form-control" id="powerSupply">
+              <option>5V USB Type-C</option>
+              <option>12V DC Power Adapter</option>
+              <option>3.7V Li-ion Battery with TP4056</option>
+              <option>230V AC to 5V Step-Down</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Microcontroller / MCU</label>
+            <select class="form-control" id="mcu">
+              <option>ESP32 (Wi-Fi + BLE)</option>
+              <option>STM32 ARM Cortex</option>
+              <option>Arduino ATmega328P</option>
+              <option>Raspberry Pi RP2040 Pico</option>
+              <option>No MCU / Analog Circuit</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 2. Size & Components (Pricing Drivers) -->
+        <div class="form-section-title">2. Board Size & Component Density (Calculates Price)</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;" class="form-group">
+          <div>
+            <label class="form-label">Target Board Size</label>
+            <select class="form-control" id="boardSize" onchange="calculatePrice()">
+              <option value="small">Small (< 50×50 mm)</option>
+              <option value="medium" selected>Medium (50 - 100 mm)</option>
+              <option value="large">Large (> 100 mm)</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Estimated Components</label>
+            <select class="form-control" id="compCount" onchange="calculatePrice()">
+              <option value="simple">Simple (< 20 Comps)</option>
+              <option value="standard" selected>Standard (20 - 50 Comps)</option>
+              <option value="complex">Complex (50 - 100 Comps)</option>
+              <option value="dense">High Density (100+ Comps)</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">PCB Layers</label>
+            <select class="form-control" id="layers" onchange="calculatePrice()">
+              <option value="2-Layer" selected>2-Layer (Standard)</option>
+              <option value="4-Layer">4-Layer (Multi-Layer)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- DYNAMIC BUDGET PRICE DISPLAY -->
+        <div class="price-box-banner">
+          <div>
+            <div style="font-size:11.5px; color:var(--emerald); font-weight:800; text-transform:uppercase;">⚡ Special Launch Discount Price:</div>
+            <div class="price-tag" id="displayEstPrice">₹899</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:11.5px; color:var(--text-muted); font-weight:bold; text-transform:uppercase;">Turnaround:</div>
+            <div style="font-size:15px; font-weight:bold; color:var(--emerald);" id="displayTurnaround">24 - 48 Hours</div>
+          </div>
+        </div>
+
+        <!-- 3. Details & Contact -->
+        <div class="form-section-title">3. Specifications & Notes</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;" class="form-group">
+          <div>
+            <label class="form-label">Inputs / Sensors</label>
+            <input type="text" class="form-control" id="inputs" placeholder="e.g. Temp, Push buttons">
+          </div>
+          <div>
+            <label class="form-label">Outputs & Relays</label>
+            <input type="text" class="form-control" id="outputs" placeholder="e.g. 2 Relays, OLED">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <textarea class="form-control" id="notes" rows="2" placeholder="Any specific connector placements or special component notes..."></textarea>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;" class="form-group">
+          <div>
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="clientName" placeholder="e.g. Ramesh" required>
+          </div>
+          <div>
+            <label class="form-label">WhatsApp Number</label>
+            <input type="tel" class="form-control" id="clientPhone" placeholder="e.g. 9840123456" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-main-order" style="width:100%; justify-content:center; padding:15px; margin-top:10px;">
+          🚀 Confirm Order at <span id="btnPriceLabel" style="margin-left:4px;">₹899</span>
+        </button>
+      </form>
+
+      <!-- Order Confirmation Box -->
+      <div id="orderSuccessBox" style="display:none; background:rgba(16,185,129,0.1); border:1px solid var(--emerald); border-radius:12px; padding:24px; margin-top:20px; text-align:center;">
+        <h3 style="color:var(--emerald); font-size:20px; margin-bottom:4px;">🎉 PCB Design Order Placed Successfully!</h3>
+        <p style="font-size:14px; margin-bottom:12px;">Your Tracking Reference: <strong style="color:var(--cyan); font-size:18px;" id="orderIdText">#ORD-PCB-8921</strong></p>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Saved in permanent Excel database and routed to engineer's WhatsApp.</p>
+        <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+          <a href="#" id="orderWaBtn" target="_blank" style="background:#25D366; color:white; padding:11px 20px; border-radius:8px; font-weight:800; font-size:13.5px; text-decoration:none;">📲 Send Specs on WhatsApp Directly</a>
+          <button class="btn-secondary" onclick="showView('track')">🔍 Track Order Status Now</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. TRACKING VIEW -->
+  <div id="trackView" class="container">
+    <div class="order-top-bar">
+      <button class="btn-back-home" onclick="showView('home')">← Back to Homepage</button>
+      <span style="font-size:13px; font-weight:700; color:var(--cyan);">🔍 Live PCB Order Status & Delivery Tracker</span>
+    </div>
+
+    <div class="box-card">
+      <h2 style="font-family:'Space Grotesk', sans-serif; font-size:24px; margin-bottom:6px;">📦 Track Your PCB Design Order</h2>
+      <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:20px;">Enter your Order ID (e.g. <strong style="color:var(--cyan);">ORD-PCB-12345</strong>) or Registered 10-Digit WhatsApp Number.</p>
+
+      <div style="display:flex; gap:10px; margin-bottom:24px;">
+        <input type="text" class="form-control" id="trackInput" placeholder="Enter Order ID or WhatsApp Number..." style="flex:1;">
+        <button class="btn-main-order" onclick="fetchOrderStatus()" style="padding:11px 22px;">Search 🔍</button>
+      </div>
+
+      <div id="trackingResultArea" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div style="font-family:'Space Grotesk', sans-serif; font-size:16px; font-weight:700; color:var(--text); margin-bottom:6px;">
+        ⚡ Nex Circuit Design Chennai
+      </div>
+      <p style="font-size:12.5px;">Affordable KiCad PCB Layout • Permanent Engineering Archive • Real-Time Order Tracking</p>
+      <p style="font-size:12px; margin-top:8px;">Direct Support: <strong style="color:var(--cyan);">+91 82704 44638</strong> | Chennai, Tamil Nadu, India</p>
+    </div>
+  </footer>
+
+  <script>
+    function showView(view) {
+      document.getElementById('homeView').style.display = 'none';
+      document.getElementById('orderView').style.display = 'none';
+      document.getElementById('trackView').style.display = 'none';
+
+      if (view === 'order') document.getElementById('orderView').style.display = 'block';
+      else if (view === 'track') document.getElementById('trackView').style.display = 'block';
+      else document.getElementById('homeView').style.display = 'block';
+
+      window.scrollTo(0, 0);
+    }
+
+    function calculatePrice() {
+      const size = document.getElementById('boardSize').value;
+      const comps = document.getElementById('compCount').value;
+      const layers = document.getElementById('layers').value;
+
+      let price = 899;
+      let time = "24 - 48 Hours";
+
+      if (layers === '4-Layer') {
+        price = 2499;
+        time = "2 - 3 Days";
+      } else {
+        if (size === 'small') {
+          if (comps === 'simple') { price = 499; time = "24 Hours"; }
+          else if (comps === 'standard') { price = 699; time = "24 Hours"; }
+          else { price = 999; time = "24 - 48 Hours"; }
+        } else if (size === 'medium') {
+          if (comps === 'simple') { price = 699; time = "24 Hours"; }
+          else if (comps === 'standard') { price = 899; time = "24 - 48 Hours"; }
+          else if (comps === 'complex') { price = 1499; time = "48 Hours"; }
+          else { price = 1999; time = "2 - 3 Days"; }
+        } else { // Large
+          if (comps === 'simple' || comps === 'standard') { price = 1499; time = "48 Hours"; }
+          else if (comps === 'complex') { price = 1999; time = "2 - 3 Days"; }
+          else { price = 2499; time = "3 Days"; }
+        }
+      }
+
+      const formattedPrice = '₹' + price.toLocaleString();
+      document.getElementById('displayEstPrice').innerText = formattedPrice;
+      document.getElementById('btnPriceLabel').innerText = formattedPrice;
+      document.getElementById('displayTurnaround').innerText = time;
+    }
+
+    async function submitPcbOrder(e) {
+  e.preventDefault();
+  
+  const payload = {
+    name: document.getElementById('clientName').value,
+    phone: document.getElementById('clientPhone').value,
+    projectTitle: document.getElementById('projectTitle').value,
+    powerSupply: document.getElementById('powerSupply').value,
+    mcu: document.getElementById('mcu').value,
+    inputs: document.getElementById('inputs').value || 'Standard Sensors',
+    outputs: document.getElementById('outputs').value || 'Standard Outputs',
+    communication: 'Wi-Fi & BLE',
+    boardSize: document.getElementById('boardSize').options[document.getElementById('boardSize').selectedIndex].text,
+    compCount: document.getElementById('compCount').options[document.getElementById('compCount').selectedIndex].text,
+    layers: document.getElementById('layers').value,
+    mounting: 'SMD',
+    notes: document.getElementById('notes').value || 'Standard specs',
+    estimatedPrice: document.getElementById('displayEstPrice').innerText
+  };
+
+  try {
+    const res = await fetch('/api/pcb-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      document.getElementById('pcbOrderForm').style.display = 'none';
+      document.getElementById('orderSuccessBox').style.display = 'block';
+      document.getElementById('orderIdText').innerText = '#' + data.orderId;
+
+      // Direct structured alert to Owner WhatsApp (+91 82704 44638)
+      const waText = encodeURIComponent(
+        `⚡ *NEW PCB ORDER RECEIVED (#${data.orderId})*\n\n` +
+        `📌 *Project:* ${payload.projectTitle}\n` +
+        `📐 *Size:* ${payload.boardSize}\n` +
+        `🧩 *Components:* ${payload.compCount}\n` +
+        `⚡ *Layers:* ${payload.layers}\n` +
+        `💰 *Price:* ${payload.estimatedPrice}\n` +
+        `👤 *Client:* ${payload.name} (📞 ${payload.phone})\n` +
+        `📝 *Notes:* ${payload.notes}\n\n` +
+        `_Saved in Excel database. Ready for KiCad Schematic._`
+      );
+
+      const targetUrl = 'https://wa.me/918270444638?text=' + waText;
+      document.getElementById('orderWaBtn').href = targetUrl;
+
+      // 0.5 வினாடியில் தானாகவே வாட்ஸ்அப் திறக்கும்
+      setTimeout(() => {
+        window.open(targetUrl, '_blank');
+      }, 500);
+    }
+  } catch (err) {
+    alert('Could not connect. Please try again.');
+  }
+}
+    async function fetchOrderStatus() {
+      const q = document.getElementById('trackInput').value.trim();
+      if (!q) {
+        alert('Please enter an Order ID or WhatsApp number.');
+        return;
+      }
+
+      const area = document.getElementById('trackingResultArea');
+      area.style.display = 'block';
+      area.innerHTML = '<p style="color:var(--text-muted); text-align:center;">Searching engineering records...</p>';
+
+      try {
+        const res = await fetch('/api/track-order?q=' + encodeURIComponent(q));
+        const data = await res.json();
+
+        if (res.ok && data.orders && data.orders.length > 0) {
+          let html = '';
+          data.orders.forEach(ord => {
+            const step1 = ord.statusStep >= 1 ? 'completed' : 'active';
+            const step2 = ord.statusStep >= 2 ? (ord.statusStep > 2 ? 'completed' : 'active') : '';
+            const step3 = ord.statusStep >= 3 ? (ord.statusStep > 3 ? 'completed' : 'active') : '';
+            const step4 = ord.statusStep >= 4 ? 'completed' : '';
+
+            html += `
+              <div style="background:var(--bg); border:1px solid var(--border); padding:20px; border-radius:12px; margin-bottom:16px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; border-bottom:1px solid var(--border); padding-bottom:10px; margin-bottom:14px;">
+                  <div>
+                    <span style="color:var(--cyan); font-weight:800; font-size:16px;">${ord.orderId}</span>
+                    <span style="font-size:12px; color:var(--text-muted); margin-left:8px;">📅 ${ord.orderDate}</span>
+                  </div>
+                  <div style="font-size:16px; font-weight:bold; color:var(--emerald);">
+                    Confirmed Price: ${ord.estimatedPrice}
+                  </div>
+                </div>
+
+                <h4 style="font-size:16px; margin-bottom:4px;">📌 ${ord.projectTitle}</h4>
+                <p style="font-size:13px; color:var(--text-muted); margin-bottom:14px;">
+                  Size: <strong>${ord.boardSize}</strong> | Comps: <strong>${ord.compCount}</strong> | Client: <strong>${ord.name}</strong>
+                </p>
+
+                <!-- Stepper Progress Bar -->
+                <div class="tracker-stepper">
+                  <div class="step-item ${step1}">1. Review & BOM</div>
+                  <div class="step-item ${step2}">2. Schematic</div>
+                  <div class="step-item ${step3}">3. PCB Routing</div>
+                  <div class="step-item ${step4}">4. Ready & Gerbers</div>
+                </div>
+
+                <div style="background:rgba(6,182,212,0.06); border:1px solid rgba(6,182,212,0.2); padding:12px; border-radius:8px; font-size:13px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                  <div>
+                    Current Status: <strong style="color:var(--cyan);">${ord.status}</strong><br>
+                    <small style="color:var(--text-muted);">Est. Delivery: ${ord.estimatedDelivery}</small>
+                  </div>
+                  <a href="https://wa.me/918270444638?text=${encodeURIComponent('Hi Nex Circuit Design, checking status of my order ' + ord.orderId)}" target="_blank" style="background:#25D366; color:white; text-decoration:none; padding:7px 14px; border-radius:6px; font-weight:700; font-size:12px;">
+                    📲 Message Engineer
+                  </a>
+                </div>
+              </div>
+            `;
+          });
+          area.innerHTML = html;
+        } else {
+          area.innerHTML = `
+            <div style="padding:20px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.2); border-radius:8px; text-align:center; color:#f87171; font-size:13.5px;">
+              ❌ ${data.message || 'No orders found with that ID or Phone number.'}
+            </div>
+          `;
+        }
+      } catch (e) {
+        area.innerHTML = '<p style="color:red; text-align:center;">Network error. Please try again.</p>';
+      }
+    }
+  </script>
+</body>
+</html>
