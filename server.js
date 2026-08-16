@@ -30,7 +30,7 @@ if (!fs.existsSync(CSV_FILE)) {
   fs.writeFileSync(CSV_FILE, headers, 'utf8');
 }
 
-// 1. API: PCB Order Save to Database & Excel
+// 1. API: Submit PCB Order
 app.post('/api/pcb-order', (req, res) => {
   const { name, phone, projectTitle, powerSupply, mcu, inputs, outputs, communication, layers, boardSize, compCount, mounting, notes, fileName, estimatedPrice } = req.body;
   if (!name || !phone) return res.status(400).json({ error: 'Name and Phone required' });
@@ -89,6 +89,22 @@ app.get('/api/track-order', (req, res) => {
   }
 
   res.json({ success: true, orders: matched });
+});
+
+// 3. API: Admin Update Order Status (PIN: 8270)
+app.post('/api/admin/update-status', (req, res) => {
+  const { pin, orderId, newStep, statusText } = req.body;
+  if (pin !== '8270') return res.status(401).json({ error: 'Unauthorized PIN' });
+
+  const orders = getOrders();
+  const target = orders.find(o => o.orderId === orderId);
+  if (!target) return res.status(404).json({ error: 'Order not found' });
+
+  target.statusStep = parseInt(newStep) || target.statusStep;
+  target.status = statusText || target.status;
+  saveOrders(orders);
+
+  res.json({ success: true, order: target });
 });
 
 app.get('/', (req, res) => {
